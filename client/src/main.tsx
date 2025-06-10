@@ -7,7 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 
 // Import the main app component
 import App from "./App";
-import HomePage from "./components/HomePage";
+import HomePage from "./pages/HomePage";
 import Register from "./pages/Register";
 
 // Import additional components for new routes
