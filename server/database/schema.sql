@@ -1,21 +1,73 @@
-create table user (
-  id int unsigned primary key auto_increment not null,
-  email varchar(255) not null unique,
-  password varchar(255) not null
+
+CREATE TABLE IF NOT EXISTS role (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  label VARCHAR(50) NOT NULL,
+
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null,
-  user_id int unsigned not null,
-  foreign key(user_id) references user(id)
+
+CREATE TABLE IF NOT EXISTS user (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  firstname VARCHAR(50) NOT NULL,
+  lastname VARCHAR(50) NOT NULL,
+  pseudo VARCHAR(50) NOT NULL,
+  hash_password VARCHAR(255) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  role_id INTEGER NOT NULL,
+  FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
-insert into user(id, email, password)
-values
-  (1, "jdoe@mail.com", "123456");
+CREATE TABLE IF NOT EXISTS recipe (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  title TEXT NOT NULL,
+  calories INTEGER NOT NULL,
+  description TEXT NOT NULL,
+  picture TEXT NOT NULL,
 
-insert into item(id, title, user_id)
-values
-  (1, "Stuff", 1),
-  (2, "Doodads", 1);
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  user_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id)
+);
+
+CREATE TABLE IF NOT EXISTS user_recipe (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  commentary TEXT NOT NULL,
+
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  user_id INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES user(id),
+  recipe_id INTEGER NOT NULL,
+  FOREIGN KEY (recipe_id) REFERENCES recipe(id)
+);
+
+CREATE TABLE IF NOT EXISTS food (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  name TEXT NOT NULL,
+  calories INTEGER NOT NULL,
+  family TEXT NOT NULL,
+  picture TEXT NOT NULL,
+
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS recipe_food (
+  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  recipe_id INTEGER NOT NULL,
+  FOREIGN KEY (recipe_id) REFERENCES recipe(id),
+  food_id INTEGER NOT NULL,
+  FOREIGN KEY (food_id) REFERENCES food(id)
+);
