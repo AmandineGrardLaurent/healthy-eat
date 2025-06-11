@@ -1,22 +1,49 @@
 import { useState } from "react";
+import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import banner from "../assets/images/banner.jpg";
 
 export default function RegisterForm() {
   const inputStyle = "border-1 border-emerald-800 rounded-sm bg-green-50 p-1";
   const labelStyle = "flex flex-col text-sm mt-3";
   const errorStyle = "text-red-600 text-xs";
+  const navigate = useNavigate();
 
   const [visible, setVisible] = useState(false);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
 
-  const onSubmit = () => {
-    // console.log(data);
+  const onSubmit = async (data: FieldValues) => {
+    try {
+      const transformedData = {
+        lastname: data.lastname.toLowerCase(),
+        firstname: data.firstname.toLowerCase(),
+        email: data.email.toLowerCase(),
+        hash_password: data.hash_password,
+        pseudo: data.pseudo.toLowerCase(),
+      };
+
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transformedData),
+      });
+      if (response.status === 422) {
+        return;
+      }
+
+      await response.json();
+      reset();
+      navigate("/register");
+    } catch (error) {}
   };
 
   return (

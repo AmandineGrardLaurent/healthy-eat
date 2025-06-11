@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS user (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-  role_id INTEGER NOT NULL,
+  role_id INTEGER NOT NULL DEFAULT 2,
   FOREIGN KEY (role_id) REFERENCES role(id)
 );
 
@@ -71,3 +71,5 @@ CREATE TABLE IF NOT EXISTS recipe_food (
   food_id INTEGER NOT NULL,
   FOREIGN KEY (food_id) REFERENCES food(id)
 );
+
+INSERT INTO role (id,label) VALUES (1, "admin"), (2, "user");
