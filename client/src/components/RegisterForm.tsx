@@ -1,16 +1,23 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import banner from "../assets/images/banner.jpg";
 
 export default function RegisterForm() {
-  const inputStyle = "border-1 border-emerald-800 rounded-sm bg-green-50";
+  const inputStyle = "border-1 border-emerald-800 rounded-sm bg-green-50 p-1";
   const labelStyle = "flex flex-col text-sm mt-3";
   const errorStyle = "text-red-600 text-xs";
 
+  const [visible, setVisible] = useState(false);
+
   const {
     register,
-    // handleSubmit,
+    handleSubmit,
     formState: { errors },
   } = useForm<FormValues>();
+
+  const onSubmit = () => {
+    // console.log(data);
+  };
 
   return (
     <>
@@ -27,7 +34,7 @@ export default function RegisterForm() {
       <section className="border-emerald-700 border-2 w-7/8 my-9 md:my-7  md:w-4xl m-auto rounded-2xl ">
         <h2 className="text-center mt-5 mb-5">Formulaire d'inscription</h2>
         <form
-          //   onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col w-7/8 md:w-2xl m-auto"
         >
           <label htmlFor="firstname" className={labelStyle}>
@@ -62,7 +69,16 @@ export default function RegisterForm() {
           <span className={errorStyle}>{errors.lastname?.message}</span>
           <label htmlFor="pseudo" className={labelStyle}>
             Pseudo
-            <input className={inputStyle} />
+            <input
+              {...register("pseudo", {
+                required: "champ obligatoire",
+                pattern: {
+                  value: /^[A-Za-z0-9-]+$/,
+                  message: "Caractères spéciaux et accents non autorisés",
+                },
+              })}
+              className={inputStyle}
+            />
           </label>
           <span className={errorStyle}>{errors.pseudo?.message}</span>
           <label htmlFor="email" className={labelStyle}>
@@ -73,25 +89,36 @@ export default function RegisterForm() {
             />
           </label>
           <span className={errorStyle}>{errors.email?.message}</span>
-          <label htmlFor="password" className={labelStyle}>
-            Mot de passe
-            <input
-              className={inputStyle}
-              {...register("hash_password", {
-                required: "champ obligatoire",
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
-                  message:
-                    "Le mot de passe doit contenir au minimum 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial",
-                },
-              })}
-            />
-          </label>
-          <span className={errorStyle}>{errors.hash_password?.message}</span>
+          <div className="flex flex-col">
+            <label htmlFor="password" className={labelStyle}>
+              Mot de passe
+              <input
+                type={visible ? "text" : "password"}
+                className={inputStyle}
+                {...register("hash_password", {
+                  required: "champ obligatoire",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+                    message:
+                      "Le mot de passe doit contenir au minimum 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial",
+                  },
+                })}
+              />
+            </label>
+            <button
+              type="button"
+              onClick={() => setVisible((v) => !v)}
+              className="text-end"
+            >
+              {visible ? "Cacher" : "Afficher"}
+            </button>
+
+            <span className={errorStyle}>{errors.hash_password?.message}</span>
+          </div>
           <button
             type="submit"
-            className="bg-emerald-600 w-2/3 m-auto rounded-xl my-4 text-white"
+            className="bg-emerald-700 w-2/3 m-auto rounded-xl my-4 text-white"
           >
             S'inscrire
           </button>
