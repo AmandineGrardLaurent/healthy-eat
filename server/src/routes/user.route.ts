@@ -1,8 +1,9 @@
 import express from "express";
-import userActions from "../modules/user/userActions";
+import { hashPassword } from "../middlewares/argon2/argon2.middleware";
+import { add } from "../modules/user/userActions";
 
 const router = express.Router();
 
-router.post("/api/user", userActions.add);
+router.post("/api/user", hashPassword, add);
 
 export default router;

@@ -8,6 +8,8 @@ export default function RegisterForm() {
   const inputStyle = "border-1 border-emerald-800 rounded-sm bg-green-50 p-1";
   const labelStyle = "flex flex-col text-sm mt-3";
   const errorStyle = "text-red-600 text-xs";
+  const minPassword = 8;
+  const maxPassword = 255;
   const navigate = useNavigate();
 
   const [visible, setVisible] = useState(false);
@@ -41,9 +43,12 @@ export default function RegisterForm() {
       }
 
       await response.json();
+      // insertion d'un toast succès
       reset();
       navigate("/register");
-    } catch (error) {}
+    } catch (error) {
+      // insertion d'un toast erreur
+    }
   };
 
   return (
@@ -67,6 +72,9 @@ export default function RegisterForm() {
           <label htmlFor="firstname" className={labelStyle}>
             Prénom
             <input
+              type="text"
+              aria-label="Saisissez votre prénom"
+              placeholder="Votre prénom"
               className={inputStyle}
               {...register("firstname", {
                 required: "champ obligatoire",
@@ -82,6 +90,9 @@ export default function RegisterForm() {
           <label htmlFor="lastname" className={labelStyle}>
             Nom
             <input
+              type="text"
+              aria-label="Saisissez votre nom"
+              placeholder="Votre nom"
               className={inputStyle}
               {...register("lastname", {
                 required: "champ obligatoire",
@@ -97,6 +108,9 @@ export default function RegisterForm() {
           <label htmlFor="pseudo" className={labelStyle}>
             Pseudo
             <input
+              type="text"
+              aria-label="Saisissez votre pseudo"
+              placeholder="Votre pseudo"
               {...register("pseudo", {
                 required: "champ obligatoire",
                 pattern: {
@@ -111,28 +125,35 @@ export default function RegisterForm() {
           <label htmlFor="email" className={labelStyle}>
             Email
             <input
+              type="email"
+              aria-label="Saisissez votre email"
+              placeholder="Votre email"
               className={inputStyle}
               {...register("email", { required: "champ obligatoire" })}
             />
           </label>
           <span className={errorStyle}>{errors.email?.message}</span>
-          <div className="flex flex-col">
-            <label htmlFor="password" className={labelStyle}>
-              Mot de passe
-              <input
-                type={visible ? "text" : "password"}
-                className={inputStyle}
-                {...register("hash_password", {
-                  required: "champ obligatoire",
-                  pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
-                    message:
-                      "Le mot de passe doit contenir au minimum 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial",
-                  },
-                })}
-              />
-            </label>
+          <label htmlFor="password" className={labelStyle}>
+            Mot de passe
+          </label>
+          <div className="border-1 border-emerald-800 rounded-sm bg-green-50 p-1 flex flex-row justify-between">
+            <input
+              type={visible ? "text" : "password"}
+              aria-label="Saisissez votre mot de passe"
+              placeholder="Votre mot de passe"
+              minLength={minPassword}
+              maxLength={maxPassword}
+              autoComplete="current-password"
+              {...register("hash_password", {
+                required: "champ obligatoire",
+                pattern: {
+                  value:
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/,
+                  message:
+                    "Le mot de passe doit contenir au minimum 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial",
+                },
+              })}
+            />
             <button
               type="button"
               onClick={() => setVisible((v) => !v)}
@@ -140,12 +161,11 @@ export default function RegisterForm() {
             >
               {visible ? "Cacher" : "Afficher"}
             </button>
-
-            <span className={errorStyle}>{errors.hash_password?.message}</span>
           </div>
+          <span className={errorStyle}>{errors.hash_password?.message}</span>
           <button
             type="submit"
-            className="bg-emerald-700 w-2/3 m-auto rounded-xl my-4 text-white"
+            className="bg-emerald-700 w-2/3 md:w-1/3 m-auto rounded-xl my-4 text-white"
           >
             S'inscrire
           </button>

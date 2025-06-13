@@ -1,7 +1,7 @@
 import type { RequestHandler } from "express";
 import userRepository from "./userRepository";
 
-const add: RequestHandler = async (req, res, next) => {
+export const add: RequestHandler = async (req, res, next) => {
   try {
     const user = {
       firstname: req.body.firstname,
@@ -18,5 +18,3 @@ const add: RequestHandler = async (req, res, next) => {
     next(error);
   }
 };
-
-export default { add };
