@@ -23,6 +23,14 @@ class UserRepository {
     );
     return rows;
   }
+
+  async findByPseudo(pseudo: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT pseudo FROM user WHERE pseudo = ?",
+      [pseudo],
+    );
+    return rows;
+  }
 }
 
 export default new UserRepository();
