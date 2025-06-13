@@ -1,5 +1,5 @@
 import databaseClient from "../../../database/client";
-import type { Result } from "../../../database/client";
+import type { Result, Rows } from "../../../database/client";
 
 class UserRepository {
   async create(user: UserType) {
@@ -14,6 +14,22 @@ class UserRepository {
       ],
     );
     return [result];
+  }
+
+  async findByEmail(email: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT email FROM user WHERE email = ?",
+      [email],
+    );
+    return rows;
+  }
+
+  async findByPseudo(pseudo: string) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT pseudo FROM user WHERE pseudo = ?",
+      [pseudo],
+    );
+    return rows;
   }
 }
 
