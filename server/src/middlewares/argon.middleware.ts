@@ -1,5 +1,5 @@
 import type { RequestHandler } from "express";
-import { hashPasswordHelper } from "../../helpers/argon2/argon2.helper";
+import { hashPasswordHelper } from "../helpers/argon2/argon2.helper";
 
 export const hashPassword: RequestHandler = async (req, res, next) => {
   const { hash_password } = req.body;
