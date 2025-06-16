@@ -52,7 +52,7 @@ export default function RegisterForm() {
   };
 
   return (
-    <>
+    <main>
       <section className="relative w-full h-screen">
         <img
           src={banner}
@@ -63,7 +63,7 @@ export default function RegisterForm() {
           Healthy Eat
         </h1>
       </section>
-      <section className="border-emerald-700 border-2 w-7/8 my-9 md:my-7  md:w-4xl m-auto rounded-2xl ">
+      <section className="border-emerald-700 border-2 w-7/8 my-9 md:my-50 md:w-4xl m-auto  rounded-2xl ">
         <h2 className="text-center mt-5 mb-5">Formulaire d'inscription</h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -171,6 +171,6 @@ export default function RegisterForm() {
           </button>
         </form>
       </section>
-    </>
+    </main>
   );
 }
