@@ -7,6 +7,7 @@
   src: url("/client/src/assets/font/LilyScriptOne-regular.ttf") format("ttf");
 }
 
-h1 {
+h1,
+h2 {
   font-family: "Kaushan Script", cursive;
 }
