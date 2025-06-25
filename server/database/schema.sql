@@ -73,3 +73,5 @@ CREATE TABLE IF NOT EXISTS recipe_food (
 );
 
 INSERT INTO role (id,label) VALUES (1, "admin"), (2, "user");
+INSERT INTO user (id, firstname, lastname, pseudo, hash_password, email) VALUES (1, "Amandine", "tata", "biscotte31", "Coucou1234*", "a@aaa.fr");
+INSERT INTO recipe (id, title, calories, description, picture, user_id) VALUES (1, "salade de tomates", "120", "salade de tomates", "", 1);
