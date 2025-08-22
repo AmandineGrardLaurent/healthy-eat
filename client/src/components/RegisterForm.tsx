@@ -64,7 +64,9 @@ export default function RegisterForm() {
         </h1>
       </section>
       <section className="border-emerald-700 border-2 w-7/8 my-9 md:my-50 md:w-4xl m-auto  rounded-2xl ">
-        <h2 className="text-center mt-5 mb-5">Formulaire d'inscription</h2>
+        <h2 className="text-center text-3xl text-emerald-800 mt-5 mb-5">
+          Formulaire d'inscription
+        </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col w-7/8 md:w-2xl m-auto"
