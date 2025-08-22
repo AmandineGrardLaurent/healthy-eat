@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 export default function NavBar() {
   const [click, setClick] = useState(false);
@@ -24,7 +25,7 @@ export default function NavBar() {
             {" "}
           </button>
           <ul className="fixed top-0 left-0 h-full w-2/3 max-w-1/3 md:max-w-1/8 bg-white shadow-lg flex flex-col gap-6 p-8 transition-transform duration-300 z-50">
-            <li>Inscription</li>
+            <Link to="/register">Inscription</Link>
             <li>Connexion</li>
             <li>Les recettes</li>
           </ul>
