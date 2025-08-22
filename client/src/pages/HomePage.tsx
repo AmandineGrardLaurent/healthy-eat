@@ -1,4 +1,4 @@
-import banner from "../assets/images/banner.jpg";
+import Banner from "../components/Banner";
 import RecipeCard from "../components/RecipeCard";
 
 const recipes = [
@@ -88,16 +88,7 @@ const recipes = [
 export default function HomePage() {
   return (
     <div className="bg-lime-50">
-      <section className="relative w-full h-screen">
-        <img
-          src={banner}
-          alt="banner vegetables"
-          className="object-cover w-full h-full"
-        />
-        <h1 className="absolute inset-0 flex items-center justify-center text-5xl font-bold text-emerald-800 md:text-9xl">
-          Healthy Eat
-        </h1>
-      </section>
+      <Banner />
       <main>
         <h2 className="text-center text-2xl md:text-5xl text-emerald-800 mt-10 md:mt-25">
           Notre selection de la semaine

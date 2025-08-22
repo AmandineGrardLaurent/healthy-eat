@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import banner from "../assets/images/banner.jpg";
+import Banner from "./Banner";
 
 export default function RegisterForm() {
   const inputStyle = "border-1 border-emerald-800 rounded-sm bg-green-50 p-1";
@@ -53,16 +53,7 @@ export default function RegisterForm() {
 
   return (
     <main>
-      <section className="relative w-full h-screen">
-        <img
-          src={banner}
-          alt="banner vegetables"
-          className="object-cover w-full h-full"
-        />
-        <h1 className="absolute inset-0 flex items-center justify-center text-5xl font-bold text-emerald-800 md:text-9xl">
-          Healthy Eat
-        </h1>
-      </section>
+      <Banner />
       <section className="border-emerald-700 border-2 w-7/8 my-9 md:my-50 md:w-4xl m-auto  rounded-2xl ">
         <h2 className="text-center text-3xl text-emerald-800 mt-5 mb-5">
           Formulaire d'inscription
