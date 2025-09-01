@@ -7,7 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router";
 
 // Import the main app component
 import App from "./App";
-import FoodForm from "./pages/FoodForm";
+import FoodFormPage from "./pages/FoodFormPage";
 import HomePage from "./pages/HomePage";
 import Register from "./pages/Register";
 
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/homepage", element: <HomePage /> },
       { path: "/register", element: <Register /> },
-      { path: "/foodForm", element: <FoodForm /> },
+      { path: "/foodformpage", element: <FoodFormPage /> },
     ],
   },
   // Try adding a new route! For example, "/about" with an About component
